@@ -1,0 +1,47 @@
+--  how the first letter get capitalized ?
+
+ <? input.text.substring(0, 1).toUpperCase() + input.text.substring(1) ?>    //JAVA
+
+This will capitalize the first letter of the user reply for you. If you are not a programmer, don't
+worry too much about the details. Simply know that it capitalizes the input text and you can
+copy and paste it whenever you have such a need in your chatbots.
+
+
+Exercise 1: Remember the city with context variables
+Whenever a user enters a new input, the intent and entities that are detected don't stick around for the rest of the conversation. 
+They exist at the moment, for the current input, and are forgotten once the user types more questions.
+
+This is generally fine, but it limits the chatbot's ability to appear smarter and remembering the context of the conversation so far. 
+For example, consider the following interaction
+
+A human customer care agent responding to the second question would have inferred that the user is asking about the hours of operation for the city they just 
+inquired about in the previous question (i.e., Toronto).
+
+However, the entity detected in the first input only lives for the duration of that input, so our chatbot has no memory of it when the user enters a second question.
+
+How can we store this information so that it’s available for the duration of the conversation? Enter the concept of context variables, which allow us to do just that.
+ As we go about collecting information from the user, we can store it in the Context and then reuse it when it makes sense.
+
+One way to achieve this is to create a passthrough node that checks for the @ location entity and sets it to the $city context variable if one is detected. 
+It then jumps to the next node in the dialog and hands off the execution to the rest of the nodes as if this node didn't exist.
+
+Keep in mind that this is not necessarily the best approach, but it allows us to demonstrate a couple of things:
+
+The passthrough node technique which can come in handy in complex chatbots;
+
+How context variables work.
+
+So, let's see how this would work in practice.
+
+Creating a passthrough node
+In the Dialog section of your skill, select the Welcome node more options menu, and **click
+Add node below** to create a sibling node underneath (as a reminder, all nodes must be contained between the Welcome and the Anything else node).
+
+Call the node Assign City or something similar. **Set the condition to @ location. Delete the
+response by clicking on the trash can icon in the response area**, as we don't want this node to issue the response, only to set the variable in the context.
+
+Next click on the more options menu to the right of Assistant responds and **select *Open
+context editor***.
+
+You'll be offered the ability to set one or more context variables whenever this node is
+executed. Enter city for the variable name, and @ location for the value,
